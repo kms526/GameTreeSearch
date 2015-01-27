@@ -158,17 +158,33 @@ class ReflexAgent(Agent):
     newGhostStates = successorGameState.getGhostStates()
     newScaredTimes = [ghostState.scaredTimer for ghostState in newGhostStates]
     
-#    distanceX = newGhostStates[0].getPosition()[0] - successorGameState.getPacmanPosition()[0]
-#    distanceY = newGhostStates[0].getPosition()[1] - successorGameState.getPacmanPosition()[1]
-#    distance = math.sqrt((distanceX*distanceX) + (distanceY*distanceY))
+    distanceX = newGhostStates[0].getPosition()[0] - successorGameState.getPacmanPosition()[0]
+    distanceY = newGhostStates[0].getPosition()[1] - successorGameState.getPacmanPosition()[1]
+    distance = math.sqrt((distanceX*distanceX) + (distanceY*distanceY))
 
-    boardWidth = 5
+    width = oldFood.getWidth()
+    height = oldFood.getHeight()
+    x = 0
+    distanceClosestFood = 10000000
+    
+    while x < width:
+        y = 0
+        while y < height:
+            if oldFood[x][y] == True:
+                distanceFoodX = x - successorGameState.getPacmanPosition()[0]
+                distanceFoodY = y - successorGameState.getPacmanPosition()[1]
+                distanceFood = math.sqrt((distanceFoodX*distanceFoodX) + (distanceFoodY*distanceFoodY))
+                if distanceFood < distanceClosestFood:
+                    distanceClosestFood = distanceFood
+                    print "Found closer food at " + str(x) + "," + str(y)
+            y += 1
+        x += 1
+    
 #    print newGhostStates[0].getPosition()
 #    print newGhostStates[0].getPosition()[0]
-    print oldFood
     print '------'
 #    return successorGameState.getScore() + distance
-    return successorGameState.getScore()
+    return successorGameState.getScore() - distanceClosestFood + 2*distance
 
     # Useful information you can extract from a GameState (pacman.py)
     

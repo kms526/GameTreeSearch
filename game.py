@@ -183,6 +183,12 @@ class Grid:
         base *= 2
     return hash(h)
 
+  def getHeight(self):
+    return self.height
+  
+  def getWidth(self):
+    return self.width
+
   def copy(self):
     g = Grid(self.width, self.height)
     g.data = [x[:] for x in self.data]
