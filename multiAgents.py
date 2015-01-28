@@ -184,7 +184,7 @@ class ReflexAgent(Agent):
 #    print newGhostStates[0].getPosition()[0]
     print '------'
 #    return successorGameState.getScore() + distance
-    return successorGameState.getScore() - distanceClosestFood + 2*distance
+    return successorGameState.getScore() + distance - distanceClosestFood
 
     # Useful information you can extract from a GameState (pacman.py)
     
